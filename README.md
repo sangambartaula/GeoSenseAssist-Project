@@ -39,5 +39,5 @@ run database.py
 run main.py
 
 **step 9:**
-use the automated URL link that contains your IP address to open site
+use the automated URL link that contains your IP address to open website
 
