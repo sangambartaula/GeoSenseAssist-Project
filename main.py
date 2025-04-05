@@ -1,21 +1,25 @@
 from website import create_app
 import os
-import socket
 
-# Get the environment variable (default to "development" if not set)
 flask_env = os.getenv("FLASK_ENV", "development")
 
-app = create_app()
+if flask_env == "deployment":
+    port = int(os.getenv("PORT", 5000))
 
-if __name__ == '__main__':
-    if flask_env == "deployment":
-        # Deployment configuration (Heroku)
-        port = int(os.getenv("PORT", 5000))
-        app.run(host='0.0.0.0', port=port, debug=False)
-        print(f"Website is live at: http://127.0.0.1:{port}")
-        print(f"https://geosenseassist-3f7440326683.herokuapp.com/")
-    else:
-        hostname = socket.gethostname()
-        local_ip = socket.gethostbyname(hostname)
-        print(f"Your local IP: {local_ip}")
+    app = create_app()
+
+    if __name__ == '__main__':
+        print(f"Website is live at: https://geosenseassist-3f7440326683.herokuapp.com/")
+        app.run(host='0.0.0.0', port=port, debug=False) 
+else:
+    # Local Development Configuration
+    hostname = socket.gethostname()
+    local_ip = socket.gethostbyname(hostname)
+
+    print(f"Your local IP: {local_ip}")
+
+    app = create_app()
+
+    if __name__ == '__main__':
+        print(f"Access the app at: http://{local_ip}:5000")
         app.run(host='0.0.0.0', port=5000, debug=True)
