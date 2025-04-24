@@ -1,6 +1,5 @@
 Flask
 mysql-connector-python
-numpy
 python-dotenv
 pillow
 werkzeug
